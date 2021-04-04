@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="choi.jaeho.report.domain.dao.ProductDao">
+
+    <!-- 해당 상점에 있는 상품을 조회 -->
+    <select id="getProductsByStoreId" resultType="Product">
+        SELECT *
+        FROM product
+        WHERE store_id = #{storeId}
+        ORDER BY product_name
+    </select>
+
+    <!-- 삼점에 상품 존재여부 확인 -->
+    <select id="getCntByStoreIdAndProductName" resultType="int">
+        SELECT COUNT(*) FROM product
+        WHERE store_id = #{storeId}
+        AND product_name = #{productName}
+    </select>
+
+    <!-- 타겟 상점에 있는 상품 동기화(update) -->
+    <update id="updateByStandardProduct">
+        UPDATE product
+        SET
+            price = #{price},
+            manufacturer = #{manufacturer},
+            nutrition_info = #{nutritionInfo},
+            img = #{img}
+        WHERE product_name = #{productName}
+        AND store_id = #{storeId}
+    </update>
+
+    <!-- 타겟 상점에 있는 상품 동기화(insert) -->
+    <insert id="insertByStandardProduct">
+        INSERT INTO product
+        (
+            product_name,
+            price,
+            manufacturer,
+            nutrition_info,
+            img,
+            store_id
+        )
+        VALUES
+        (
+            #{productName},
+            #{price},
+            #{manufacturer},
+            #{nutritionInfo},
+            #{img},
+            #{storeId}
+        )
+    </insert>
+</mapper>

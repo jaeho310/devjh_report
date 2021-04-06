@@ -24,7 +24,7 @@ public class StoreManagerService {
     /**
      * 기준이되는 상점을 기준을 상품이 없다면 insert, 없다면 update 로직을 진행하는 메서드
      * DBMS에 종속적이지 않도록 merge 구문이나 upsert 대신 비즈니스로직에 모두 풀었습니다.
-     * Transactional 메서드를 통해 트랜잭션 관리를 하였습니다.
+     * Transactional 어노테이션을 통해 트랜잭션 관리를 하였습니다.
      * @param standardName 기준 상점의 이름
      * @param targetName 동기화할 상점의 이름
      */
